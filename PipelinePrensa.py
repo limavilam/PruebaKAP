@@ -63,3 +63,13 @@ df = procesar_articulos(arts)
 df.to_csv("Entidades_extraidas.csv", index=False)
 
 print(df)
+
+"""
+Evaluación de calidad de extracción:
+
+Podría utilizar las métricas y validaciones como:
+- Precision
+- Recall
+- F1-Score
+
+"""
