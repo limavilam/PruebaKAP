@@ -15,7 +15,7 @@ El archivo se alojará en una carpeta dentro del repositorio, esta ruta podría 
 
 ## Fase ETL (Extract, Transform, Load)
 
-La lógica de este pipeline es la siguiente:
+La lógica para este pipeline es la siguiente:
 
 1. Extraer los datos de la fuente
 2. Transformar los datos
@@ -40,7 +40,7 @@ df = df.dropna()
 
 ## Selección de caracteristicas
 
-## Discretización de datos o recodificación de datos
+## Recodificación de datos
 
 # Guardar los datos en el destino
 df.to_csv('/data/output/dataset_processed.csv', index=False)
@@ -48,14 +48,14 @@ df.to_csv('/data/output/dataset_processed.csv', index=False)
 
 ## Análisis de datos
 
-Una vez que tenemos los datos procesados, podemos proceder a realizar un análisis de los datos, para ello vamos a crear un archivo python que se encargue de realizar esto, este archivo se guardará en la carpeta /src/analysis.py, este archivo se encargara de realizar un análisis de los datos mediante estadisticas descriptiva e inferencial,los resultados del análisis pueden ser guardados en un archivo de texto junto a las graficas generadas, la ruta de este archivo y la carpeta donde se guardarán las graficas será:
+Una vez que tenemos los datos transformados, podemos proceder a realizar un análisis de los datos, para ello vamos a crear un archivo python que se encargue de realizar esto, este archivo se guardará en la carpeta /src/analysis.py, este archivo se encargara de realizar un análisis de los datos mediante estadisticas descriptiva e inferencial,los resultados del análisis pueden ser guardados en un archivo de texto junto a las graficas generadas, la ruta de este archivo y la carpeta donde se guardarán las graficas será:
 
 ```
 /data/output/analysis.txt
 /data/output/plots/
 ``` 
 
-Para realizar la fase de ETL yel análisis de datos vamos a utilizar la libreria pandas, numpy, matplotlib y seaborn, para ello vamos a instalar las dependencias necesarias, para esto vamos a crear un archivo requirements.txt y añadir las dependencias necesarias, la ruta de este archivo será:
+Para realizar la fase de ETL y el análisis de datos vamos a utilizar la libreria pandas, numpy, matplotlib y seaborn, para ello vamos a instalar las dependencias necesarias, para esto vamos a crear un archivo requirements.txt y añadir las dependencias necesarias, la ruta de este archivo será:
 
 ```
 requirements.txt
@@ -87,22 +87,22 @@ seaborn
 scikit-learn
 ```
 
-Asumamos que el modelo que el modelo que mejor se ajusta a nuestro problema es un modelo de bosques aleatorios, para ello vamos a utilizar la clase RandomForestClassifier de la libreria scikit-learn, el cual quedará de la siguiente manera:
+Asumiremos que el modelo que el modelo que mejor se ajusta a nuestro problema es un modelo de bosques aleatorios, para ello vamos a utilizar la clase RandomForestClassifier de la libreria scikit-learn, el cual quedará de la siguiente manera:
 
 ```python
 from sklearn.ensemble import RandomForestClassifier 
 
 # Crear el modelo
-model = RandomForestClassifier()
+modelo = RandomForestClassifier()
 
-# Asumamos que el dataset tiene una columna de etiquetas (y) y el resto de columnas son las caracteristicas (X) 
+# Asumiremos que el dataset tiene una columna de etiquetas (y) y el resto de columnas son las caracteristicas (X) 
 X = df.drop('y', axis=1)
 y = df['y']
 
-# Dividir el dataset en conjuntos de entrenamiento y prueba
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+# Se realiza la división del dataset en conjuntos de entrenamiento y prueba
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# Entrenar el modelo
+# Entrenamos el modelo
 model.fit(X_train, y_train) 
 ``` 
 
@@ -113,10 +113,10 @@ Una vez que el modelo está entrenado, podemos proceder a evaluarlo, para ello s
 ```python
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 
-# Evaluar el modelo
+# Evalua el modelo
 y_pred = model.predict(X_test)
 
-# Generar reportes y métricas
+# Reportes y métricas
 accuracy = accuracy_score(y_test, y_pred)
 precision = precision_score(y_test, y_pred)
 recall = recall_score(y_test, y_pred)

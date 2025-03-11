@@ -1,0 +1,4 @@
+oración,entidades encontradas,tipo de entidad
+la onu anunció una nueva iniciativa en colaboración con el gobierno de colombia,"['onu', 'de colombia']","['ORG', 'LOC']"
+el presidente de apple anuncio una nueva oficina en seattle,"['apple', 'seattle']","['ORG', 'LOC']"
+el equipo de fútbol de colombia ganó el mundial,['de colombia'],['LOC']
